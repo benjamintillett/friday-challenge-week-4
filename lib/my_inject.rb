@@ -1,11 +1,16 @@
 class Array
 
 	def my_inject(*args)
-		unless block_given?
+		if !block_given?
 			array, method, accumulator = self, args.pop, args[0]
 			accumulator = array.slice!(0) unless accumulator
-			array.each { |element| accumulator= accumulator.send(method,element) }
+			array.each { |element| accumulator = accumulator.send(method,element) }
 			accumulator
-		end
+		else
+			array = self
+			accumulator = array.slice!(0) 
+			array.each { |element| accumulator = yield(accumulator,element) }
+			accumulator
+		end	
 	end
 end

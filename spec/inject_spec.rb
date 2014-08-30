@@ -24,5 +24,11 @@ describe Array do
 		it "passed an empty block returns nil" do 
 			expect([1,2,3,4,5].inject{}).to eq nil
 		end 
+		it "passed { 1 } returns 1" do
+			expect([1,2,3,4,5].inject{ 1 }).to eq 1
+		end
+		it "passed { |memo,element| memo + element } returns 15" do
+			expect([1,2,3,4,5].inject{ |memo,element| memo + element }).to eq 15
+		end 
 	end
 end
