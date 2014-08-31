@@ -32,6 +32,26 @@ describe Array do
 		it "passed { |memo,element| memo + element } returns 15" do
 			expect([1,2,3,4,5].my_inject{ |memo,element| memo + element }).to eq 15
 		end 
+
+		it "passed { |memo,element| memo * element } returns 120" do
+			expect([1,2,3,4,5].my_inject{ |memo,element| memo * element }).to eq 120 
+		end
+	end
+
+	context "inject called on [1,2,3,4,5] with a block and a argument" do
+		it "passed (0){} return nil" do 
+			expect([1,2,3,4,5].my_inject(0){}).to be nil
+		end
+
+		it "passed (0){ |memo| memo } returns 0" do 
+			expect([1,2,3,4,5].my_inject(0){ |memo| memo }).to be 0
+		end
+
+		it "passed (0){ |memo,element| memo * element } returns 0" do 
+			expect([1,2,3,4,5].my_inject(0){ |memo,element| memo * element }).to be 0
+		end		
+
+
 	end
 
 end

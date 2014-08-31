@@ -1,15 +1,18 @@
 class Array
 
-	def my_inject(*args)
+	def my_inject(*args,&block)
+		array = self
 		if !block_given?
-			array, method, accumulator = self, args.pop, args[0]
+			method =  lambda &args.pop
+			puts method.inspect
+			accumulator = args[0]
 			accumulator = array.slice!(0) unless accumulator
-			array.each { |element| accumulator = accumulator.send(method,element) }
+			array.each { |element| accumulator = method.call(accumulator,element) }
 			accumulator
 		else
-			array = self
-			accumulator = array.slice!(0) 
-			array.each { |element| accumulator = yield(accumulator,element) }
+			accumulator = args[0]
+			accumulator = array.slice!(0) unless accumulator
+			array.each { |element| accumulator = block.call(accumulator,element) }
 			accumulator
 		end	
 	end
